@@ -32,4 +32,14 @@ public class EmployeeController {
     public Employee read(@PathVariable("id") Long id) {
         return this.employeeService.read(id);
     }
+
+    @DeleteMapping(path = "{id}")
+    public void delete(@PathVariable("id") Long id) {
+        this.employeeService.delete(id);
+    }
+
+    @PutMapping(path = "{id}")
+    public Employee update(@RequestBody Employee employee, @PathVariable("id") Long id) {
+        return this.employeeService.update(employee, id);
+    }
 }

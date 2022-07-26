@@ -41,7 +41,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee current = this.read(id);
         current.setFirstName(employee.getFirstName());
         current.setLastName(employee.getLastName());
-        //employeeRepository.save(current);
+        employeeRepository.save(current); // *****************************************
         return current;
     }
 
