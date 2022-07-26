@@ -24,7 +24,7 @@ public class Task {
     private List<Employee> employees;
 
     public Task() {
-        if (employees == null) {
+        if (this.employees == null) {
             this.employees = new ArrayList<>();
         }
     }
@@ -36,7 +36,7 @@ public class Task {
         this.it = it;
         this.rt = rt;
 
-        if (employees == null) {
+        if (this.employees == null) {
             this.employees = new ArrayList<>();
         }
     }

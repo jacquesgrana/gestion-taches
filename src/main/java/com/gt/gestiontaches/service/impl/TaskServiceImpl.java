@@ -40,8 +40,24 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public Task update(Task task, Long id) {
+        Task current = this.read(id);
+        current.setTitle(task.getTitle());
+        current.setDescription(task.getDescription());
+        current.setIt(task.getIt());
+        current.setRt(task.getRt());
+        taskRepository.save(current); // *******************************************************
+        return current;
+    }
+
+    @Override
     public void delete(Long id) {
         this.taskRepository.deleteById(id);
+    }
+
+    @Override
+    public void employeeToTask(Long userId, Long taskId) {
+
     }
 
 

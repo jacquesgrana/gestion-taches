@@ -9,8 +9,8 @@ public interface TaskService {
     List<Task> search();
     void create (Task task);
     Task read(Long id);
-    //Task update(Task task);
+    Task update(Task task, Long id);
     void delete(Long id);
 
-    //void employeeToTask(Long userId, Long taskId);
+    void employeeToTask(Long userId, Long taskId);
 }

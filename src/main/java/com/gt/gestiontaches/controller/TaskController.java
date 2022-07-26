@@ -1,6 +1,5 @@
 package com.gt.gestiontaches.controller;
 
-import com.gt.gestiontaches.entity.Employee;
 import com.gt.gestiontaches.entity.Task;
 import com.gt.gestiontaches.service.TaskService;
 import org.springframework.http.MediaType;
@@ -36,5 +35,10 @@ public class TaskController {
     @DeleteMapping(path = "{id}")
     public void delete(@PathVariable("id") Long id) {
         this.taskService.delete(id);
+    }
+
+    @PutMapping(path = "{id}")
+    public Task update(@RequestBody Task task, @PathVariable("id") Long id) {
+        return this.taskService.update(task, id);
     }
 }
