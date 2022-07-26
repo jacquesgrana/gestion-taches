@@ -5,6 +5,8 @@ import com.gt.gestiontaches.service.EmployeeService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping(path = "employee", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -16,8 +18,18 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
+    @GetMapping(path="all")
+    public List<Employee> search() {
+        return this.employeeService.search();
+    }
+
     @PostMapping
     public void create(@RequestBody Employee employee) {
         this.employeeService.create(employee);
+    }
+
+    @GetMapping(path = "{id}")
+    public Employee read(@PathVariable("id") Long id) {
+        return this.employeeService.read(id);
     }
 }
