@@ -1,7 +1,6 @@
 package com.gt.gestiontaches.entity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +27,6 @@ public class Task {
         if (employees == null) {
             this.employees = new ArrayList<>();
         }
-
     }
 
     public Task(Long id, String title, String description, int it, int rt) {
