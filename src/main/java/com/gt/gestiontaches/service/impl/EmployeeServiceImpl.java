@@ -3,11 +3,15 @@ package com.gt.gestiontaches.service.impl;
 import com.gt.gestiontaches.entity.Employee;
 import com.gt.gestiontaches.repository.EmployeeRepository;
 import com.gt.gestiontaches.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
 
+    @Autowired
     private EmployeeRepository employeeRepository;
 
     public EmployeeServiceImpl() {
@@ -24,22 +28,26 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void create(Employee employee) {
-
+        this.employeeRepository.save(employee);
     }
 
     @Override
     public Employee read(Long id) {
-        return null;
+        return this.employeeRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Employee update(Employee employee) {
-        return null;
+    public Employee update(Employee employee, Long id) {
+        Employee current = this.read(id);
+        current.setFirstName(employee.getFirstName());
+        current.setLastName(employee.getLastName());
+        //employeeRepository.save(current);
+        return current;
     }
 
     @Override
     public void delete(Long id) {
-
+        this.employeeRepository.deleteById(id);
     }
 
     @Override

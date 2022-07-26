@@ -3,6 +3,7 @@ package com.gt.gestiontaches.service.impl;
 import com.gt.gestiontaches.entity.Task;
 import com.gt.gestiontaches.repository.TaskRepository;
 import com.gt.gestiontaches.service.TaskService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Service
 public class TaskServiceImpl implements TaskService {
 
+    @Autowired
     private TaskRepository taskRepository;
 
     public TaskServiceImpl() {

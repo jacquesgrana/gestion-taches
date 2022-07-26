@@ -18,6 +18,7 @@ public class Employee {
 
     private String userName;
 
+    //@JoinTable(name="employee_task")
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Task> tasks;
 
