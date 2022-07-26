@@ -51,7 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void taskToUser(Long taskId, Long userId) {
+    public void taskToEmployee(Long taskId, Long userId) {
 
     }
 }

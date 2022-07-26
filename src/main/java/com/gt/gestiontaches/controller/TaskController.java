@@ -32,4 +32,9 @@ public class TaskController {
     public void create(@RequestBody Task task) {
         this.taskService.create(task);
     }
+
+    @DeleteMapping(path = "{id}")
+    public void delete(@PathVariable("id") Long id) {
+        this.taskService.delete(id);
+    }
 }

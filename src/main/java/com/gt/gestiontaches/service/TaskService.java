@@ -10,7 +10,7 @@ public interface TaskService {
     void create (Task task);
     Task read(Long id);
     //Task update(Task task);
-    //void delete(Long id);
+    void delete(Long id);
 
-    //void userToTask(Long userId, Long taskId);
+    //void employeeToTask(Long userId, Long taskId);
 }
