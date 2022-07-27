@@ -1,10 +1,12 @@
 package com.gt.gestiontaches.controller;
 
+import com.gt.gestiontaches.dto.EmployeeTaskDTO;
 import com.gt.gestiontaches.entity.Employee;
 import com.gt.gestiontaches.exceptions.BadRequestException;
 import com.gt.gestiontaches.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +34,7 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "{id}")
-    public Employee read(@PathVariable("id") Long id) {
+    public Employee read(@PathVariable("id") Long id) throws BadRequestException {
         return this.employeeService.read(id);
     }
 
@@ -42,7 +44,13 @@ public class EmployeeController {
     }
 
     @PutMapping(path = "{id}")
-    public Employee update(@RequestBody Employee employee, @PathVariable("id") Long id) {
+    public Employee update(@RequestBody Employee employee, @PathVariable("id") Long id) throws BadRequestException {
         return this.employeeService.update(employee, id);
+    }
+
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PostMapping("/{employeeId}/task")
+    public void taskToEmployee(@Validated @RequestBody EmployeeTaskDTO EmployeeTask) throws BadRequestException {
+        this.employeeService.taskToEmployee(EmployeeTask.getIdTask(), EmployeeTask.getIdEmployee());
     }
 }

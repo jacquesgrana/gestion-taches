@@ -1,6 +1,7 @@
 package com.gt.gestiontaches.controller;
 
 import com.gt.gestiontaches.entity.Task;
+import com.gt.gestiontaches.exceptions.BadRequestException;
 import com.gt.gestiontaches.service.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,7 +25,7 @@ public class TaskController {
     }
 
     @GetMapping(path = "{id}")
-    public Task read(@PathVariable("id") Long id) {
+    public Task read(@PathVariable("id") Long id) throws BadRequestException {
         return this.taskService.read(id);
     }
 
@@ -40,7 +41,7 @@ public class TaskController {
     }
 
     @PutMapping(path = "{id}")
-    public Task update(@RequestBody Task task, @PathVariable("id") Long id) {
+    public Task update(@RequestBody Task task, @PathVariable("id") Long id) throws BadRequestException {
         return this.taskService.update(task, id);
     }
 }

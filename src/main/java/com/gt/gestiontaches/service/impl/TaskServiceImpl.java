@@ -2,14 +2,20 @@ package com.gt.gestiontaches.service.impl;
 
 import com.gt.gestiontaches.entity.Employee;
 import com.gt.gestiontaches.entity.Task;
+import com.gt.gestiontaches.enums.ErrorCode;
+import com.gt.gestiontaches.exceptions.BadRequestException;
 import com.gt.gestiontaches.repository.TaskRepository;
 import com.gt.gestiontaches.service.EmployeeService;
 import com.gt.gestiontaches.service.TaskService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+//@Transactional
+@Slf4j
 @Service
 public class TaskServiceImpl implements TaskService {
 
@@ -41,17 +47,18 @@ public class TaskServiceImpl implements TaskService {
     public void create(Task task) {
         // verif TI > TR
         // verif TR =
+        log.info("Création de la tache {}", task.getTitle());
         task.setRt(task.getIt());
         this.taskRepository.save(task);
     }
 
     @Override
-    public Task read(Long id) {
-        return this.taskRepository.findById(id).orElse(null);
+    public Task read(Long id) throws BadRequestException {
+        return this.taskRepository.findById(id).orElseThrow(() -> new BadRequestException(ErrorCode.TASK_NOT_FOUND, "Pas de tache à cet id"));
     }
 
     @Override
-    public Task update(Task task, Long id) {
+    public Task update(Task task, Long id) throws BadRequestException {
         Task current = this.read(id);
         current.setTitle(task.getTitle());
         current.setDescription(task.getDescription());
@@ -69,11 +76,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void employeeToTask(Long employeeId, Long taskId) {
-/*
-        Task currentTask = this.read(taskId);
-        Employee currentEmpl = employeeService.read(employeeId);
-        currentTask.getEmployees().add(currentEmpl);
-        taskRepository.save(currentTask);*/
+
     }
 
 

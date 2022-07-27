@@ -1,6 +1,6 @@
 package com.gt.gestiontaches.dto;
 
-import com.gt.gestiontaches.enums.ErrorCode;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,9 +10,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErrorDTO {
+public class EmployeeTaskDTO {
 
-    private ErrorCode code;
-    private String message;
+    @NotNull
+    private Long idEmployee;
+    @NotNull
+    private Long idTask;
+
 
 }

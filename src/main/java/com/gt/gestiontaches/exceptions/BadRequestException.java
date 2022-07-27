@@ -9,4 +9,12 @@ public class BadRequestException extends Exception{
         super(message);
         this.code = code;
     }
+
+    public ErrorCode getCode() {
+        return code;
+    }
+
+    public void setCode(ErrorCode code) {
+        this.code = code;
+    }
 }
