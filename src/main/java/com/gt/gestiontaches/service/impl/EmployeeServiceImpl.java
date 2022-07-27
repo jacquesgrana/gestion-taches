@@ -1,9 +1,13 @@
 package com.gt.gestiontaches.service.impl;
 
 import com.gt.gestiontaches.entity.Employee;
+import com.gt.gestiontaches.entity.Task;
+import com.gt.gestiontaches.enums.ErrorCode;
 import com.gt.gestiontaches.exceptions.BadRequestException;
 import com.gt.gestiontaches.repository.EmployeeRepository;
+import com.gt.gestiontaches.repository.TaskRepository;
 import com.gt.gestiontaches.service.EmployeeService;
+import com.gt.gestiontaches.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +20,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private TaskService taskService;
+
     public EmployeeServiceImpl() {
     }
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, TaskService taskService) {
         this.employeeRepository = employeeRepository;
+        this.taskService = taskService;
     }
 
     @Override
@@ -32,7 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void create(Employee employee) throws BadRequestException {
         Optional<Employee> employeeOptional = this.employeeRepository.findByUserName(employee.getUserName());
         if(employeeOptional.isPresent()) {
-            throw new BadRequestException("Un employé existe déjà avec cet username");
+            throw new BadRequestException(ErrorCode.USERNAME_ALREADY_EXISTS, "Un employé existe déjà avec cet username");
         }
         this.employeeRepository.save(employee);
     }
@@ -57,7 +65,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void taskToEmployee(Long taskId, Long userId) {
-
+    public void taskToEmployee(Long taskId, Long employeeId) {
+        Employee currentEmpl = this.read(employeeId);
+        Task currentTask = taskService.read(taskId);
+        currentEmpl.getTasks().add(currentTask);
+        //currentTask.getEmployees().add(currentEmpl);
+        employeeRepository.save(currentEmpl); // ***********************************************
     }
 }

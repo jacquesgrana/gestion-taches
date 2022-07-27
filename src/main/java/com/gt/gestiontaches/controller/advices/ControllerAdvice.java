@@ -13,7 +13,7 @@ public class ControllerAdvice {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = BadRequestException.class)
-    public @ResponseBody ErrorDTO handleIllegalArgumentException(Exception exception) {
+    public @ResponseBody ErrorDTO handleBadRequestException(Exception exception) {
         //exception.printStackTrace();
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setCode(ErrorCode.USERNAME_ALREADY_EXISTS);

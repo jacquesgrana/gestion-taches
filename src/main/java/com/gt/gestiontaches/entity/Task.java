@@ -21,6 +21,7 @@ public class Task {
     private int rt;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="employee_task")
     private List<Employee> employees;
 
     public Task() {

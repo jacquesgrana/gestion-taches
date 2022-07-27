@@ -1,7 +1,9 @@
 package com.gt.gestiontaches.service.impl;
 
+import com.gt.gestiontaches.entity.Employee;
 import com.gt.gestiontaches.entity.Task;
 import com.gt.gestiontaches.repository.TaskRepository;
+import com.gt.gestiontaches.service.EmployeeService;
 import com.gt.gestiontaches.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +16,17 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
+    //@Autowired
+    //private EmployeeService employeeService;
+
     public TaskServiceImpl() {
     }
+
+    /*
+    public TaskServiceImpl(TaskRepository taskRepository, EmployeeService employeeService) {
+        this.taskRepository = taskRepository;
+        this.employeeService = employeeService;
+    }*/
 
     public TaskServiceImpl(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
@@ -55,9 +66,14 @@ public class TaskServiceImpl implements TaskService {
         this.taskRepository.deleteById(id);
     }
 
-    @Override
-    public void employeeToTask(Long userId, Long taskId) {
 
+    @Override
+    public void employeeToTask(Long employeeId, Long taskId) {
+/*
+        Task currentTask = this.read(taskId);
+        Employee currentEmpl = employeeService.read(employeeId);
+        currentTask.getEmployees().add(currentEmpl);
+        taskRepository.save(currentTask);*/
     }
 
 
