@@ -9,9 +9,9 @@ public interface EmployeeService {
 
     List<Employee> search();
     void create (Employee employee) throws BadRequestException;
-    Employee read(Long id) throws BadRequestException;
-    Employee update(Employee employee, Long id) throws BadRequestException;
-    void delete(Long id);
+    Employee read(Integer id) throws BadRequestException;
+    Employee update(Employee employee, Integer id) throws BadRequestException;
+    void delete(Integer id);
 
-    void taskToEmployee(Long taskId, Long employeeId) throws BadRequestException;
+    void taskToEmployee(Integer taskId, Integer employeeId) throws BadRequestException;
 }

@@ -53,12 +53,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task read(Long id) throws BadRequestException {
+    public Task read(Integer id) throws BadRequestException {
         return this.taskRepository.findById(id).orElseThrow(() -> new BadRequestException(ErrorCode.TASK_NOT_FOUND, "Pas de tache à cet id"));
     }
 
     @Override
-    public Task update(Task task, Long id) throws BadRequestException {
+    public Task update(Task task, Integer id) throws BadRequestException {
         Task current = this.read(id);
         current.setTitle(task.getTitle());
         current.setDescription(task.getDescription());
@@ -69,13 +69,13 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Integer id) {
         this.taskRepository.deleteById(id);
     }
 
 
     @Override
-    public void employeeToTask(Long employeeId, Long taskId) {
+    public void employeeToTask(Integer employeeId, Integer taskId) {
 
     }
 

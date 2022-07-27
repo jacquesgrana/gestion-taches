@@ -9,9 +9,9 @@ public interface TaskService {
 
     List<Task> search();
     void create (Task task);
-    Task read(Long id) throws BadRequestException;
-    Task update(Task task, Long id) throws BadRequestException;
-    void delete(Long id);
+    Task read(Integer id) throws BadRequestException;
+    Task update(Task task, Integer id) throws BadRequestException;
+    void delete(Integer id);
 
-    void employeeToTask(Long userId, Long taskId);
+    void employeeToTask(Integer userId, Integer taskId);
 }

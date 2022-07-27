@@ -18,21 +18,25 @@ import java.util.List;
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
+    private Integer id;
 
+    @Column(name = "FIRST_NAME")
     private String firstName;
 
+    @Column(name = "LAST_NAME")
     private String lastName;
 
-    @Column(unique = true)
+
+    @Column(name = "USERNAME", unique = true)
     private String userName;
 
     //@JoinTable(name="employee_task")
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="employee_task",
-            joinColumns= @JoinColumn(name="id_employee", referencedColumnName="id"),
-            inverseJoinColumns= @JoinColumn(name="id_task", referencedColumnName="id"))
+    @JoinTable(name="EMPLOYEE_TASK",
+            joinColumns= @JoinColumn(name="EMPLOYEE_ID", referencedColumnName="id"),
+            inverseJoinColumns= @JoinColumn(name="TASK_ID", referencedColumnName="id"))
     private List<Task> tasks;
 
 }

@@ -52,12 +52,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee read(Long id) throws BadRequestException {
+    public Employee read(Integer id) throws BadRequestException {
         return this.employeeRepository.findById(id).orElseThrow(() -> new BadRequestException(ErrorCode.EMPLOYEE_NOT_FOUND, "Pas d'employé a cet id"));
     }
 
     @Override
-    public Employee update(Employee employee, Long id) throws BadRequestException {
+    public Employee update(Employee employee, Integer id) throws BadRequestException {
         Employee current = this.read(id);
         current.setFirstName(employee.getFirstName());
         current.setLastName(employee.getLastName());
@@ -66,12 +66,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Integer id) {
         this.employeeRepository.deleteById(id);
     }
 
     @Override
-    public void taskToEmployee(Long taskId, Long employeeId) throws BadRequestException {
+    public void taskToEmployee(Integer taskId, Integer employeeId) throws BadRequestException {
         Employee currentEmpl = this.read(employeeId);
         Task currentTask = taskService.read(taskId);
         //currentEmpl.getTasks().add(currentTask);

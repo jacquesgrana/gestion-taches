@@ -25,7 +25,7 @@ public class TaskController {
     }
 
     @GetMapping(path = "{id}")
-    public Task read(@PathVariable("id") Long id) throws BadRequestException {
+    public Task read(@PathVariable("id") Integer id) throws BadRequestException {
         return this.taskService.read(id);
     }
 
@@ -36,12 +36,12 @@ public class TaskController {
     }
 
     @DeleteMapping(path = "{id}")
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(@PathVariable("id") Integer id) {
         this.taskService.delete(id);
     }
 
     @PutMapping(path = "{id}")
-    public Task update(@RequestBody Task task, @PathVariable("id") Long id) throws BadRequestException {
+    public Task update(@RequestBody Task task, @PathVariable("id") Integer id) throws BadRequestException {
         return this.taskService.update(task, id);
     }
 }

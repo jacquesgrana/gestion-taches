@@ -13,9 +13,9 @@ import lombok.Setter;
 public class EmployeeTaskDTO {
 
     @NotNull
-    private Long idEmployee;
+    private Integer idEmployee;
     @NotNull
-    private Long idTask;
+    private Integer idTask;
 
 
 }

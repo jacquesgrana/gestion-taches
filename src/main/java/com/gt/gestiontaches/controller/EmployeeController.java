@@ -34,17 +34,17 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "{id}")
-    public Employee read(@PathVariable("id") Long id) throws BadRequestException {
+    public Employee read(@PathVariable("id") Integer id) throws BadRequestException {
         return this.employeeService.read(id);
     }
 
     @DeleteMapping(path = "{id}")
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(@PathVariable("id") Integer id) {
         this.employeeService.delete(id);
     }
 
     @PutMapping(path = "{id}")
-    public Employee update(@RequestBody Employee employee, @PathVariable("id") Long id) throws BadRequestException {
+    public Employee update(@RequestBody Employee employee, @PathVariable("id") Integer id) throws BadRequestException {
         return this.employeeService.update(employee, id);
     }
 
