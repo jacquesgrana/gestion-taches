@@ -2,6 +2,7 @@ package com.gt.gestiontaches.controller;
 
 import com.gt.gestiontaches.entity.Employee;
 import com.gt.gestiontaches.service.EmployeeService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,8 @@ public class EmployeeController {
         return this.employeeService.search();
     }
 
-    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void create(@RequestBody Employee employee) {
         this.employeeService.create(employee);
     }

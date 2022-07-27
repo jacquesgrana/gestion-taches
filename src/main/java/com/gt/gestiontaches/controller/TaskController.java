@@ -27,7 +27,7 @@ public class TaskController {
         return this.taskService.read(id);
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void create(@RequestBody Task task) {
         this.taskService.create(task);
     }

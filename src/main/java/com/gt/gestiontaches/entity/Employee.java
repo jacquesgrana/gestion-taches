@@ -16,6 +16,7 @@ public class Employee {
 
     private String lastName;
 
+    @Column(unique = true)
     private String userName;
 
     //@JoinTable(name="employee_task")
