@@ -21,7 +21,9 @@ public class Employee {
 
     //@JoinTable(name="employee_task")
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="employee_task")
+    @JoinTable(name="employee_task",
+            joinColumns= @JoinColumn(name="id_employee", referencedColumnName="id"),
+            inverseJoinColumns= @JoinColumn(name="id_task", referencedColumnName="id"))
     private List<Task> tasks;
 
     public Employee() {
