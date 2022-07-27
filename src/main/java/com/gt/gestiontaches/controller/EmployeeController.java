@@ -1,6 +1,7 @@
 package com.gt.gestiontaches.controller;
 
 import com.gt.gestiontaches.entity.Employee;
+import com.gt.gestiontaches.exceptions.BadRequestException;
 import com.gt.gestiontaches.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,7 +27,7 @@ public class EmployeeController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void create(@RequestBody Employee employee) {
+    public void create(@RequestBody Employee employee) throws BadRequestException {
         this.employeeService.create(employee);
     }
 

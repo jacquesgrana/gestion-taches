@@ -2,6 +2,7 @@ package com.gt.gestiontaches.controller;
 
 import com.gt.gestiontaches.entity.Task;
 import com.gt.gestiontaches.service.TaskService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,7 @@ public class TaskController {
         return this.taskService.read(id);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void create(@RequestBody Task task) {
         this.taskService.create(task);

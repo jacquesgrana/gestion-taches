@@ -1,23 +1,25 @@
 package com.gt.gestiontaches.dto;
 
+import com.gt.gestiontaches.enums.ErrorCode;
+
 public class ErrorDTO {
 
-    private String code;
+    private ErrorCode code;
     private String message;
 
     public ErrorDTO() {
     }
 
-    public ErrorDTO(String code, String message) {
+    public ErrorDTO(ErrorCode code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    public String getCode() {
+    public ErrorCode getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(ErrorCode code) {
         this.code = code;
     }
 

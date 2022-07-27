@@ -1,6 +1,7 @@
 package com.gt.gestiontaches.service.impl;
 
 import com.gt.gestiontaches.entity.Employee;
+import com.gt.gestiontaches.exceptions.BadRequestException;
 import com.gt.gestiontaches.repository.EmployeeRepository;
 import com.gt.gestiontaches.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +29,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void create(Employee employee) {
+    public void create(Employee employee) throws BadRequestException {
         Optional<Employee> employeeOptional = this.employeeRepository.findByUserName(employee.getUserName());
         if(employeeOptional.isPresent()) {
-            throw new IllegalArgumentException("Un employé existe déjà avec cet username");
+            throw new BadRequestException("Un employé existe déjà avec cet username");
         }
         this.employeeRepository.save(employee);
     }
