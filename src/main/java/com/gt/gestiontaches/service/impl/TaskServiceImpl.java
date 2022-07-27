@@ -1,11 +1,9 @@
 package com.gt.gestiontaches.service.impl;
 
-import com.gt.gestiontaches.entity.Employee;
 import com.gt.gestiontaches.entity.Task;
 import com.gt.gestiontaches.enums.ErrorCode;
 import com.gt.gestiontaches.exceptions.BadRequestException;
 import com.gt.gestiontaches.repository.TaskRepository;
-import com.gt.gestiontaches.service.EmployeeService;
 import com.gt.gestiontaches.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,8 +67,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void delete(Integer id) {
-        this.taskRepository.deleteById(id);
+    public void delete(Integer id) throws BadRequestException {
+        Task taskToDelete = this.read(id);
+        this.taskRepository.delete(taskToDelete);
     }
 
 

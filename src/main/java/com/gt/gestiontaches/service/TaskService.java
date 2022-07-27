@@ -11,7 +11,7 @@ public interface TaskService {
     void create (Task task);
     Task read(Integer id) throws BadRequestException;
     Task update(Task task, Integer id) throws BadRequestException;
-    void delete(Integer id);
+    void delete(Integer id) throws BadRequestException;
 
     void employeeToTask(Integer userId, Integer taskId);
 }

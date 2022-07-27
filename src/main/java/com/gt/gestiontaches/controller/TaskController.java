@@ -36,7 +36,7 @@ public class TaskController {
     }
 
     @DeleteMapping(path = "{id}")
-    public void delete(@PathVariable("id") Integer id) {
+    public void delete(@PathVariable("id") Integer id) throws BadRequestException {
         this.taskService.delete(id);
     }
 

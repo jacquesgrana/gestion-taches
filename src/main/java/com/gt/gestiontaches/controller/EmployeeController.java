@@ -39,7 +39,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping(path = "{id}")
-    public void delete(@PathVariable("id") Integer id) {
+    public void delete(@PathVariable("id") Integer id) throws BadRequestException {
         this.employeeService.delete(id);
     }
 

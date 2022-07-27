@@ -66,8 +66,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void delete(Integer id) {
-        this.employeeRepository.deleteById(id);
+    public void delete(Integer id) throws BadRequestException {
+        Employee employeeToDelete = this.read(id);
+        this.employeeRepository.delete(employeeToDelete);
     }
 
     @Override
