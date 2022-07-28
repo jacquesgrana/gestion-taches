@@ -6,5 +6,7 @@ public enum ErrorCode {
 
     EMPLOYEE_NOT_FOUND,
 
-    TASK_NOT_FOUND
+    TASK_NOT_FOUND,
+
+    PASSWORD_NOT_CORRECT
 }

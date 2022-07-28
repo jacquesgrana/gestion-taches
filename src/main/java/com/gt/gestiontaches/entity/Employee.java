@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collector;
@@ -46,13 +47,13 @@ public class Employee implements UserDetails {
     @JoinTable(name="EMPLOYEE_TASK",
             joinColumns= @JoinColumn(name="EMPLOYEE_ID", referencedColumnName="id"),
             inverseJoinColumns= @JoinColumn(name="TASK_ID", referencedColumnName="id"))
-    private List<Task> tasks;
+    private List<Task> tasks = new ArrayList<>();;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="EMPLOYEE_ROLE",
             joinColumns= @JoinColumn(name="EMPLOYEE_ID", referencedColumnName="id"),
             inverseJoinColumns= @JoinColumn(name="ROLE_ID", referencedColumnName="id"))
-    private List<Role> roles;
+    private List<Role> roles = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -63,7 +64,7 @@ public class Employee implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return this.password;
     }
 
     @Override
