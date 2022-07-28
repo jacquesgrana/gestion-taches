@@ -8,5 +8,9 @@ public enum ErrorCode {
 
     TASK_NOT_FOUND,
 
-    PASSWORD_NOT_CORRECT
+    PASSWORD_NOT_CORRECT,
+
+    TIME_OUT,
+
+    TOKEN_BAD
 }

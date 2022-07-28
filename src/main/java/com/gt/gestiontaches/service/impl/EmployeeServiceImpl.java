@@ -96,4 +96,11 @@ public class EmployeeServiceImpl implements EmployeeService {
             employeeRepository.save(currentEmpl); // ********************************
         }
     }
+
+    @Override
+    public Employee getByUserName(String username) throws BadRequestException {
+        return this.employeeRepository
+                .findByUserName(username)
+                .orElseThrow(()-> new BadRequestException(ErrorCode.EMPLOYEE_NOT_FOUND, "Aucun employé trouvé"));
+    }
 }

@@ -1,5 +1,6 @@
 package com.gt.gestiontaches.controller;
 
+import com.gt.gestiontaches.dto.ActivationDTO;
 import com.gt.gestiontaches.entity.Employee;
 import com.gt.gestiontaches.exceptions.BadRequestException;
 import com.gt.gestiontaches.service.AccountService;
@@ -21,5 +22,11 @@ public class AccountController {
     @PostMapping(path = "signup", consumes = MediaType.APPLICATION_JSON_VALUE)
     void signup(@RequestBody Employee employee) throws BadRequestException {
         this.accountService.signup(employee);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PostMapping(path = "activate", consumes = MediaType.APPLICATION_JSON_VALUE)
+    void activate(@RequestBody ActivationDTO activationDto) throws BadRequestException {
+        this.accountService.activate(activationDto.getUsername(), activationDto.getToken());
     }
 }

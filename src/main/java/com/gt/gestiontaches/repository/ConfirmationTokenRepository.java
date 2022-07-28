@@ -14,5 +14,6 @@ public interface ConfirmationTokenRepository extends JpaRepository<ConfirmationT
      * @return
      */
     Optional<ConfirmationToken> findByValueAndEmployeeUserName(String value, String username);
+    Optional<ConfirmationToken> findByValueAndEmployeeUserNameAndActivationNull(String token, String username);
     Optional<ConfirmationToken> findByValueAndEmployeeId(String value, int id);
 }

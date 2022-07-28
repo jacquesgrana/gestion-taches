@@ -8,4 +8,5 @@ public interface AccountService extends UserDetailsService {
 
     void signup(Employee employee) throws BadRequestException;
 
+    void activate(String username, String token) throws BadRequestException;
 }

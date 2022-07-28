@@ -18,11 +18,17 @@ public class ConfirmationToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Integer id;
 
+    @Column(name = "VALUE")
     private String value;
 
+    @Column(name = "CREATION")
     private Instant creation;
+
+    @Column(name = "ACTIVATION")
+    private Instant activation;
 
     @OneToOne
     private Employee employee;
