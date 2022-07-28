@@ -22,9 +22,9 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping(path="all")
+    @GetMapping(path= "all")
     public List<Employee> search() {
-        return this.employeeService.search();
+        return this.employeeService.search(null);
     }
 
     @ResponseStatus(HttpStatus.CREATED)

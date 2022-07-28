@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -37,14 +38,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> search() {
-        return this.employeeRepository.findAll();
+    public List<Employee> search(String query) {
+        if (query == null) {
+            return this.employeeRepository.findAll();
+        }
+        return this.employeeRepository.search(query).collect(Collectors.toList());
+
     }
 
     @Override
     public void create(Employee employee) throws BadRequestException {
         log.info("Création de l'employé {} / {}", employee.getFirstName(), employee.getLastName());
-        Optional<Employee> employeeOptional = this.employeeRepository.findByUserName(employee.getUserName());
+        Optional<Employee> employeeOptional = this.employeeRepository.findByUserName(employee.getUsername());
         if(employeeOptional.isPresent()) {
             throw new BadRequestException(ErrorCode.USERNAME_ALREADY_EXISTS, "Un employé existe déjà avec cet username");
         }

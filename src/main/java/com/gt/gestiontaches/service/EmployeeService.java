@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface EmployeeService {
 
-    List<Employee> search();
+    List<Employee> search(String query);
     void create (Employee employee) throws BadRequestException;
     Employee read(Integer id) throws BadRequestException;
     Employee update(Employee employee, Integer id) throws BadRequestException;
