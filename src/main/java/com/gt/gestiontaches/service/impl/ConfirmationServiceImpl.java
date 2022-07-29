@@ -27,6 +27,7 @@ public class ConfirmationServiceImpl implements ConfirmationService {
         confirmationToken.setValue(validationToken);
         confirmationToken.setEmployee(employee);
         confirmationToken.setCreation(Instant.now());
+        confirmationToken.setActivation(null);
         this.confirmationTokenRepository.save(confirmationToken);
     }
 
@@ -34,8 +35,8 @@ public class ConfirmationServiceImpl implements ConfirmationService {
     public ConfirmationToken getEmployeeVerificationToken(String username, String token) throws BadRequestException {
         ConfirmationToken confirmationToken =  this.confirmationTokenRepository
                 .findByValueAndEmployeeUserNameAndActivationNull(token, username)
-                .orElseThrow((() -> new BadRequestException(ErrorCode.TOKEN_BAD, "Compte désactivé ou code invalide")));
-        if (ChronoUnit.MINUTES.between(confirmationToken.getCreation(), Instant.now()) > 10) {
+                .orElseThrow(() -> new BadRequestException(ErrorCode.TOKEN_BAD, "Compte désactivé ou code invalide"));
+        if (ChronoUnit.MINUTES.between(confirmationToken.getCreation(), Instant.now()) > 30) {
             throw new BadRequestException(ErrorCode.TIME_OUT , "Le délai d'activation est dépassé");
         }
 

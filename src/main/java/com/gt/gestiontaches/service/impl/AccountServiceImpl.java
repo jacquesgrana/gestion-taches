@@ -27,13 +27,10 @@ import java.util.List;
 @Service
 public class AccountServiceImpl implements AccountService {
 
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    private EmployeeService employeeService;
-
-    private ConfirmationService confirmationService;
-
     private RoleRepository roleRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private EmployeeService employeeService;
+    private ConfirmationService confirmationService;
 
     @Override
     public void signup(Employee employee) throws BadRequestException {
@@ -61,14 +58,6 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     @Override
     public void activate(String username, String token) throws BadRequestException {
-        /*
-        ConfirmationToken confirmationToken = this.confirmationService.getEmployeeVerificationToken(username, token);
-        Employee employee = this.employeeService.getByUserName(username);
-
-        if(confirmationToken.getEmployee().getId() != employee.getId()) {
-            throw new UsernameNotFoundException("util inconne");
-        }
-        employee.setEnabled(true);*/
 
         ConfirmationToken confirmationToken = this.confirmationService.getEmployeeVerificationToken(username,  token);
         Employee employee = this.employeeService.getByUserName(username);
@@ -78,6 +67,7 @@ public class AccountServiceImpl implements AccountService {
         }
         confirmationToken.setActivation(Instant.now());
         employee.setEnabled(true);
+
     }
 
 
