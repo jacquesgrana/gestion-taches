@@ -11,6 +11,7 @@ import com.gt.gestiontaches.exceptions.BadRequestException;
 import com.gt.gestiontaches.repository.RoleRepository;
 import com.gt.gestiontaches.security.JWTTokenUtils;
 import com.gt.gestiontaches.service.AccountService;
+import com.gt.gestiontaches.service.AuthDataService;
 import com.gt.gestiontaches.service.ConfirmationService;
 import com.gt.gestiontaches.service.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -37,6 +38,8 @@ public class AccountServiceImpl implements AccountService {
     private ConfirmationService confirmationService;
 
     private JWTTokenUtils jwtTokenUtils;
+
+    private AuthDataService authDataService;
 
     @Override
     public void signup(Employee employee) throws BadRequestException {
@@ -82,8 +85,14 @@ public class AccountServiceImpl implements AccountService {
         String authentificationToken = this.jwtTokenUtils.generateToken(employee);
         String refreshToken = RandomStringUtils.random(40, true, true);
         TokenDTO tokens = new TokenDTO();
+
+        // stocker objet authdata (tokendto et employee)
+
+
         tokens.setAuthentification(authentificationToken);
         tokens.setRefresh(refreshToken);
+
+        authDataService.create(tokens, employee);
         return tokens;
     }
 

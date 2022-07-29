@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.http.HttpMethod.POST;
 
@@ -26,15 +27,19 @@ public class SecurityConfiguration {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private AccountService accountService;
 
+    private JWTTokenUtils jwtTokenUtils;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests(
-                (requests)->
-                        requests.antMatchers(POST, "signin").permitAll()
-                                .antMatchers(POST, "signup").permitAll()
-                                .antMatchers(POST, "activate").permitAll()
+                (request)->
+                        request
+                                .antMatchers(POST,"task")
+                                .hasAnyAuthority("MANAGER")
                                 .anyRequest().authenticated()
         ).httpBasic(Customizer.withDefaults());
+        JWTFilter jwtFilter = new JWTFilter(accountService, jwtTokenUtils, "Authorization");
+        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 
@@ -47,8 +52,8 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authentificationConfiguartion) throws Exception {
-            return authentificationConfiguartion.getAuthenticationManager();
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+            return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean

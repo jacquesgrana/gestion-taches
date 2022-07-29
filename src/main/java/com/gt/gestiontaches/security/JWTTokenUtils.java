@@ -1,9 +1,11 @@
 package com.gt.gestiontaches.security;
 
 import com.gt.gestiontaches.entity.Employee;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -35,5 +37,27 @@ public class JWTTokenUtils {
                 .compact();
         log.info("TOKEN {}", token);
         return token;
+    }
+
+    public String getUserNameFromToken(String token) {
+        return getClaims(token).getSubject();
+    }
+
+    private Claims getClaims(String token) {
+        Claims claims =  Jwts.parserBuilder()
+                .build()
+                .parseClaimsJwt(token)
+                .getBody();
+        //String username = claims.getSubject();
+        return claims;
+    }
+
+    public Boolean isTokenValid(String token, UserDetails employee) {
+        Claims claims = getClaims(token);
+        Date creation = claims.getExpiration();
+        String userNameFromToken = getUserNameFromToken(token);
+        Boolean isValid = userNameFromToken.equals(employee.getUsername());
+        Boolean isValidDate = creation.before(new Date());
+        return isValid && isValidDate;
     }
 }
