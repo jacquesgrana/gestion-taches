@@ -1,5 +1,7 @@
 package com.gt.gestiontaches.service.impl;
 
+import com.gt.gestiontaches.dto.AuthentificationDTO;
+import com.gt.gestiontaches.dto.TokenDTO;
 import com.gt.gestiontaches.entity.ConfirmationToken;
 import com.gt.gestiontaches.entity.Employee;
 import com.gt.gestiontaches.entity.Role;
@@ -7,11 +9,13 @@ import com.gt.gestiontaches.enums.ErrorCode;
 import com.gt.gestiontaches.enums.UserRole;
 import com.gt.gestiontaches.exceptions.BadRequestException;
 import com.gt.gestiontaches.repository.RoleRepository;
+import com.gt.gestiontaches.security.JWTTokenUtils;
 import com.gt.gestiontaches.service.AccountService;
 import com.gt.gestiontaches.service.ConfirmationService;
 import com.gt.gestiontaches.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,6 +35,8 @@ public class AccountServiceImpl implements AccountService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private EmployeeService employeeService;
     private ConfirmationService confirmationService;
+
+    private JWTTokenUtils jwtTokenUtils;
 
     @Override
     public void signup(Employee employee) throws BadRequestException {
@@ -70,8 +76,16 @@ public class AccountServiceImpl implements AccountService {
 
     }
 
-    
-
+    @Override
+    public TokenDTO generateTokens(AuthentificationDTO authentificationDTO) throws BadRequestException {
+        Employee employee = this.employeeService.getByUserName(authentificationDTO.getUsername());
+        String authentificationToken = this.jwtTokenUtils.generateToken(employee);
+        String refreshToken = RandomStringUtils.random(40, true, true);
+        TokenDTO tokens = new TokenDTO();
+        tokens.setAuthentification(authentificationToken);
+        tokens.setRefresh(refreshToken);
+        return tokens;
+    }
 
 
     @Override

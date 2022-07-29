@@ -35,7 +35,8 @@ public class AccountController {
                        authentificationDTO.getPassword()
                )
        );
-       return null;
+       TokenDTO tokenDTO = this.accountService.generateTokens(authentificationDTO);
+       return tokenDTO;
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
